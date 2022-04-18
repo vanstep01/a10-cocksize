@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import { Telegraf } from 'telegraf';
-import { getDateFluctuation } from './get-date-fluctuation';
-import { getDickSize } from './get-dick-size';
+import { getRandomPerDateDickSize } from './get-random-per-date-dick-size';
 
 dotenv.config();
 
@@ -12,10 +11,8 @@ if (token === undefined) {
 
 const bot = new Telegraf(token);
 
-const MIN_SIZE = 1;
-const MAX_SIZE = 41;
-const MIN_DATE_FLUCTUATION = 0;
-const MAX_DATE_FLUCTUATION = 10;
+const MIN_SIZE = 0;
+const MAX_SIZE = 51;
 
 const EMOJIS = {
     0: '😭',
@@ -47,13 +44,12 @@ bot.on('inline_query', async (ctx) => {
     try {
         const userId = ctx.inlineQuery.from.id.toString();
 
-        const size =
-            getDickSize(userId, MIN_SIZE, MAX_SIZE) +
-            getDateFluctuation(
-                new Date(),
-                MIN_DATE_FLUCTUATION,
-                MAX_DATE_FLUCTUATION,
-            );
+        const size = getRandomPerDateDickSize(
+            userId,
+            new Date(),
+            MIN_SIZE,
+            MAX_SIZE,
+        );
         const responseMessage = `My cock size is *${size}cm* ${getEmoji(size)}`;
 
         const result = {
