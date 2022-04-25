@@ -1,7 +1,7 @@
 // @ts-check
 
-import { interpolate } from './interpolate.js';
-import { sfc32 } from './sfc32.js';
+import { interpolate } from '../utils/interpolate.js';
+import { sfc32 } from '../utils/sfc32.js';
 
 /**
  * @param {string} userId

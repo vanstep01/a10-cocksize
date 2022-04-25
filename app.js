@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Telegraf } from 'telegraf';
+import { getCockSizeMessage } from './cocksize/get-cocksize-message';
 import { getRandomPerDateDickSize } from './get-random-per-date-dick-size';
 
 dotenv.config();
@@ -14,50 +15,18 @@ const bot = new Telegraf(token);
 const MIN_SIZE = 1;
 const MAX_SIZE = 51;
 
-const EMOJIS = {
-    0: '😭',
-    5: '🙁',
-    10: '😐',
-    15: '😏',
-    20: '😮',
-    25: '🥳',
-    30: '😨',
-    35: '😱',
-};
-
 const CACHE_TIME = 60 * 60 * 12;
-
-function getEmoji(size) {
-    const sizeSteps = Object.keys(EMOJIS);
-    let result;
-
-    sizeSteps.forEach((step) => {
-        if (step < size) {
-            result = EMOJIS[step];
-        }
-    });
-
-    return result;
-}
 
 bot.on('inline_query', async (ctx) => {
     try {
         const userId = ctx.inlineQuery.from.id.toString();
-
-        const size = getRandomPerDateDickSize(
-            userId,
-            new Date(),
-            MIN_SIZE,
-            MAX_SIZE,
-        );
-        const responseMessage = `My cock size is *${size}cm* ${getEmoji(size)}`;
 
         const result = {
             type: 'article',
             id: userId,
             title: 'Share my cock size to this chat',
             description: 'Let everyone know',
-            message_text: responseMessage,
+            message_text: getCockSizeMessage(userId),
             parse_mode: 'MarkdownV2',
         };
 
