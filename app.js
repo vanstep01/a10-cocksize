@@ -11,7 +11,7 @@ if (token === undefined) {
 
 const bot = new Telegraf(token);
 
-const MIN_SIZE = 0;
+const MIN_SIZE = 1;
 const MAX_SIZE = 51;
 
 const EMOJIS = {
