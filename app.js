@@ -43,6 +43,8 @@ function getEmoji(size) {
 bot.on('inline_query', async (ctx) => {
     try {
         const userId = ctx.inlineQuery.from.id.toString();
+        console.log(ctx.inlineQuery);
+        const isTim = ctx.inlineQuery.from.username.includes('t1mmaas');
 
         const size = getRandomPerDateDickSize(
             userId,
@@ -50,7 +52,12 @@ bot.on('inline_query', async (ctx) => {
             MIN_SIZE,
             MAX_SIZE,
         );
+
         const responseMessage = `My cock size is *${size}cm* ${getEmoji(size)}`;
+
+        if (isTim) {
+            responseMessage = 'My cock size is *57cm* ❤️❤️❤️';
+        }
 
         const result = {
             type: 'article',
