@@ -1,0 +1,13 @@
+[Unit]
+Description="A10 cocksize service"
+
+[Service]
+ExecStart=/home/jabka/.nvm/versions/node/v16.14.2/bin/npm start /home/jabka/a10-cocksize/app.js
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=a10-cocksize
+
+[Install]
+WantedBy=multi-user.target
