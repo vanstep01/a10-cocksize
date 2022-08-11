@@ -1,0 +1,22 @@
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=jabka
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/home/jabka/bin:/home/jabka/.local/bin:/home/jabka/.nvm/versions/node/v16.14.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jabka/.nvm/versions/node/v16.14.2/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/home/jabka/.pm2
+PIDFile=/home/jabka/.pm2/pm2.pid
+Restart=on-failure
+
+ExecStart=/home/jabka/.nvm/versions/node/v16.14.2/lib/node_modules/pm2/bin/pm2 resurrect
+ExecReload=/home/jabka/.nvm/versions/node/v16.14.2/lib/node_modules/pm2/bin/pm2 reload all
+ExecStop=/home/jabka/.nvm/versions/node/v16.14.2/lib/node_modules/pm2/bin/pm2 kill
+
+[Install]
+WantedBy=multi-user.target
